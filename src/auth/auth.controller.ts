@@ -18,8 +18,9 @@ export class AuthController {
             maxAge: 9 * 60 * 60 * 1000,
             sameSite: 'strict',
         });
+        console.log(accesToken);
 
-        return { message: 'Login successful' };
+        return { message: 'Login successful',  };
     }
 
     @Post('/logout')
