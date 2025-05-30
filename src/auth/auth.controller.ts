@@ -8,20 +8,17 @@ import { Response } from 'express';
 export class AuthController {
     constructor(private readonly authService: AuthService) { }
 
+    // @Post("/login")
+    // async login(@Body() loginDto: any, @Res({ passthrough: true }) res: Response) {
+    //     const { accesToken, userTokenData } = await this.authService.login(loginDto);
+    //     return { message: 'Login successful', accesToken, userTokenData  };
+    // }
+
     @Post("/login")
-    async login(@Body() loginDto: any, @Res({ passthrough: true }) res: Response) {
-        const { accesToken } = await this.authService.login(loginDto);
-
-        res.cookie('access_token', accesToken, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            maxAge: 9 * 60 * 60 * 1000,
-            sameSite: 'strict',
-        });
-        console.log(accesToken);
-
-        return { message: 'Login successful',  };
+    async login(@Body() loginDto: any) {
+        return await this.authService.login(loginDto);
     }
+
 
     @Post('/logout')
     @HttpCode(200)

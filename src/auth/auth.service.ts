@@ -21,7 +21,7 @@ export class AuthService {
         @InjectModel(Rol.name) private readonly rolModel: Model<Rol>,
         private readonly jwtService: JwtService,
     ) { }
-    async login(loginDto: any): Promise<{ accesToken: string }> {
+    async login(loginDto: any): Promise<{ accesToken: string, userTokenData: any }> {
         const { Username, Password } = loginDto;
 
         // Buscar al usuario en la base de datos
@@ -49,6 +49,6 @@ export class AuthService {
             areas: usuario.Area.map(a => a._id.toString())
         };
         const accesToken = this.jwtService.sign(userTokenData);
-        return { accesToken };
+        return { accesToken, userTokenData };
     }
 }
