@@ -6,6 +6,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(cookieParser());
   app.setGlobalPrefix("api/v1");
-  await app.listen(process.env.PORT ?? 5555);
+  await app.listen(process.env.PORT ?? 4101);
 }
 bootstrap();
