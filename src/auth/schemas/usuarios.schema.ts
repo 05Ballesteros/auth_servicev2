@@ -18,6 +18,9 @@ export class Usuario extends Document {
   @Prop({ type: [Types.ObjectId], ref: 'Area', required: true })
   Area: Types.ObjectId[];
 
+  @Prop({ type: [Types.ObjectId], ref: 'Celula', required: true })
+  Celula: Types.ObjectId[];
+
   @Prop({ type: String, required: true })
   Correo: string;
 
