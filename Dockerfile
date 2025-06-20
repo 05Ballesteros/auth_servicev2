@@ -14,4 +14,10 @@ RUN npm install --only=production
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/*.json .                                  
 EXPOSE 4101
+<<<<<<< HEAD
 CMD ["node", "dist/main"]
+=======
+CMD ["node", "dist/main"]
+ 
+ 
+>>>>>>> 5cb7486f3983929e4e9d028d724f77ccb757668b
