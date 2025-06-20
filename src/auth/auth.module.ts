@@ -6,6 +6,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Usuario, UsuarioSchema } from './schemas/usuarios.schema';
 import { Area, AreaSchema } from './schemas/area.schema';
 import { Rol, RolSchema } from './schemas/rol.schema';
+import { Celula, CelulaSchema } from './schemas/celula.schema';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { Rol, RolSchema } from './schemas/rol.schema';
     MongooseModule.forFeature([{ name: Usuario.name, schema: UsuarioSchema }]),
     MongooseModule.forFeature([{ name: Area.name, schema: AreaSchema }]),
     MongooseModule.forFeature([{ name: Rol.name, schema: RolSchema }]),
+    MongooseModule.forFeature([{ name: Celula.name, schema: CelulaSchema }]),
   ],
   providers: [AuthService],
   controllers: [AuthController],

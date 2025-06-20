@@ -7,6 +7,7 @@ import * as bcrypt from 'bcrypt';
 import { Rol } from './schemas/rol.schema';
 import { JwtService } from '@nestjs/jwt';
 import { Types } from 'mongoose';
+import { Celula } from './schemas/celula.schema';
 
 interface PopulatedUsuario extends Omit<Usuario, 'Rol' | 'Area'> {
     Rol: { _id: Types.ObjectId; Rol: string };
@@ -19,6 +20,7 @@ export class AuthService {
         @InjectModel(Usuario.name) private readonly usuarioModel: Model<Usuario>,
         @InjectModel(Area.name) private readonly areaModel: Model<Area>,
         @InjectModel(Rol.name) private readonly rolModel: Model<Rol>,
+        @InjectModel(Celula.name) private readonly celulaModel: Model<Celula>,
         private readonly jwtService: JwtService,
     ) { }
     async login(loginDto: any): Promise<{ accesToken: string, userTokenData: any }> {
@@ -26,8 +28,9 @@ export class AuthService {
 
         // Buscar al usuario en la base de datos
         const usuario = await this.usuarioModel.findOne({ Username: Username }).populate([
-            { path: 'Area', select: "_id" },
-            { path: 'Rol', select: "Rol -_id" }
+            { path: 'Area' },
+            { path: 'Rol' },
+            { path: 'Celula' }
         ]).lean<PopulatedUsuario>().exec();
         if (!usuario) {
             throw new NotFoundException(`User not found`);
@@ -46,7 +49,8 @@ export class AuthService {
             nombre: usuario.Nombre,
             correo: usuario.Correo,
             rol: usuario.Rol.Rol,
-            areas: usuario.Area.map(a => a._id.toString())
+            areas: usuario.Area.map(a => a._id.toString()),
+            celulas: usuario.Celula.map(c => c._id.toString())
         };
         const accesToken = this.jwtService.sign(userTokenData);
         return { accesToken, userTokenData };
