@@ -50,6 +50,7 @@ export class AuthService {
             correo: usuario.Correo,
             rol: usuario.Rol.Rol,
             areas: usuario.Area.map(a => a._id.toString()),
+            allowedAreas: usuario.Area.map(a => a.Area.toString()),
             celulas: usuario.Celula.map(c => c._id.toString())
         };
         const accesToken = this.jwtService.sign(userTokenData);
